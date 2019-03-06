@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import { environment } from '../../environments/environment';
 
 
-import {Statement, StatementGraph, SGEdge} from '../models';
+import {Statement, StatementGraph, SGEdge, KnowledgeBase} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class SgService {
 
   constructor(private http:HttpClient) { }
 
-  build(kbs:string[], projectId:string):Observable<any> {
+  build(kbs:KnowledgeBase[], projectId:string):Observable<any> {
     let data = {
       projectId: projectId,
       kbs: kbs
@@ -25,7 +25,7 @@ export class SgService {
     return this.http.post(`${this.apiRoot}/build`,data);
   }
 
-  query(kbs:string, projectId:string, query:string, chosenSemantics:string) {
+  query(kbs:KnowledgeBase[], projectId:string, query:string, chosenSemantics:string) {
     let data = {
       projectId: projectId,
       kbs: kbs,

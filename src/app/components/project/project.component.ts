@@ -90,13 +90,13 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
 
   build():void {
-    let kbs:string[] = [];
+    let kbs:KnowledgeBase[] = [];
     this.project.kbs.forEach(k => {
       if(k.selected) {
         kbs.push(k);
       }
     });
-    this.sgService.build(kbs,  this.project.id).subscribe(res => {
+    this.sgService.build(kbs, this.project.id).subscribe(res => {
       this.sgService.onGetData.emit(res);
       this.alertService.success("Building the combined knowledge ended successfully!");
     }, error => {
@@ -105,7 +105,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   answerQuery():void {
-    let kbs:string[] = [];
+    let kbs:KnowledgeBase[] = [];
     this.project.kbs.forEach(k => {
       if(k.selected) {
         kbs.push(k);
