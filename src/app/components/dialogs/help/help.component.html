@@ -1,0 +1,45 @@
+<!-- <h2 mat-dialog-title>Help</h2> -->
+
+<mat-dialog-content style="display:flex; flex-direction: column">
+  <h3>Overview</h3>
+  <p>
+    DAMN is a defeasible reasoning platform with the purpose of supporting the decision making process where the knowledge of different stakeholder agents can be put together in order to help reach a decision or at least detect conflicts.
+  </p>
+
+  <!-- <h3>Defeasible Reasoning</h3>
+  <p>
+    One of the aims of knowledge representation and conflict-tolerant reasoning is to help with the decision making process where the knowledge of different stakeholder agents can be put together in order to help reach a decision or at least detect conflicts. These conflicts are generally due to the inconsistency or incoherence stemming from the different world views on the application domain.
+  </p> -->
+
+<h3>Knowledge DLGP format</h3>
+<p>
+Defeasible reasoning allows the expression of strict undeniable implications,
+defeasible plausible implications that generally hold, defeater blocking implications to prevent certain conclusions from being drawn,
+and a preference relation that is used to solve conflicts and ambiguities.
+</p>
+<ul>
+  <li><strong>Term:</strong> a string representing either a variable (uppercase) e.g. <code>X</code>, or a constant (lowercase) e.g. <code>bob</code>.
+  <li><strong>Atom:</strong> a string representing a predicate with terms between parentheses e.g. <code>penguin(kowalski)</code></li>
+  <li><strong>Conjunction:</strong> a list of comma separated atoms (e.g. <code>penguin(kowalski), brokenWings(kowalski)</code>)</li>
+  <li><strong>Strict rule:</strong> conjunction strictly implied by conjunction. (e.g. <code>[label] notFly(X) <- penguin(X).</code>)</li>
+  <li><strong>Defeasible rules:</strong> conjunction generally implied by conjunction. (e.g. <code>[r1] fly(X) <= bird(X).</code>)</li>
+  <li><strong>Defeater rules:</strong> conjunction generally should not be derived if conjunction. (e.g. <code>[r2] fly(X) <~ brokenWings(X).</code>)</li>
+  <li><strong>Preference between rules:</strong> a rule overides another rule. (e.g. <code>r2 >> r1.</code>) </li>
+  <li><strong>Queries:</strong> a dot separated list of conjunctions (e.g. <code>fly(kowalski), bird(kowalski). notFly(kowalski).</code>)</li>
+
+</ul>
+
+<h3>Reasoning</h3>
+<p>
+  Click on ``Save'' on a knowledge base to save the changes, click on ``build'' to construct the statement graph without any query.
+  Input a query on the reasoning section (top left), choose a semantics, then click on ``Query'' to see the entailement
+<!-- Thus, an agent knowledge base $\Kb = (\F,\R,\N, \pref)$ is a tuple where $\F$ is a set of strict and defeasible fact rules
+(e.g. $\{\strictArrow penguin(kowalski), \defeasibleArrow brokenWings(kowalski)\}$ expressing that $kowalski$ is undeniably a penguin with potentially broken wings), $\R$ is a set of rules (e.g. $\{r_1: \forall X\, penguin(X) \strictArrow bird(X) \wedge notFly(X),$ $r_2: \forall X\, bird(X) \defeasibleArrow fly(X),$ $r_3: \forall X\, brokenWings(X) \defeaterArrow fly(X)\}$ expressing that penguins are bird who do not fly, generally birds fly, and generally one cannot say that birds with broken wings fly),
+$\N$ is a set of negative constraints expressing conflicts (e.g. $\forall fly(X), notFly(X) \strictArrow \bot$), -->
+</mat-dialog-content>
+
+<!-- <mat-dialog-actions>
+  <span class="spacer"></span>
+  <button mat-raised-button color="accent" (click)="close()">CLOSE</button>
+  <span class="spacer"></span>
+</mat-dialog-actions> -->

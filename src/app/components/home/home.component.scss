@@ -1,0 +1,76 @@
+@import '~@angular/material/theming';
+@import '../../../theme-variables.scss';
+
+
+
+.home-container {
+  padding-top: 30px;
+}
+
+:host-context(.dark-theme) .home-title-container {
+  color: mat-color($dark-primary);
+}
+.home-title-container {
+  margin: 80px 0px;
+  color: mat-color($light-primary);
+  text-align: center;
+  h1 {
+    text-align: center;
+    font-weight: 300;
+    font-size: 3rem;
+    span {
+      letter-spacing: .7em;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    font-weight:400;
+    font-size: 24px;
+  }
+
+  img {
+    width: 300px;
+  }
+}
+
+.home-cards-container {
+  margin: 0px auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  // flex-wrap: wrap;
+
+  @media (max-width: 930px) {
+    flex-direction: column;
+  }
+
+  mat-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 40px 32px;
+    padding-bottom: 12px;
+    margin: 12px;
+    margin-right: 0px;
+    &:last-child {
+      margin-right: 12px;
+    }
+
+    mat-icon {
+      // color: mat-color($primary, darker);
+      width: 30px;
+      height: 30px;
+      font-size: 30px;
+    }
+
+    mat-card-content {
+      flex:1;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      margin-bottom: 0px;
+      p {
+        font: 400 16px/32px Roboto, "Helvetica Neue", sans-serif;
+      }
+    }
+  }
+}

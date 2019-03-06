@@ -1,0 +1,52 @@
+<div class="graph-container">
+
+  <eco-fab-speed-dial direction="down" [open]="fabOpen" animationMode="scale" fixed="true">
+      <eco-fab-speed-dial-trigger spin="true">
+          <button mat-fab (click)="openFAB()"><mat-icon>menu</mat-icon></button>
+      </eco-fab-speed-dial-trigger>
+
+      <eco-fab-speed-dial-actions>
+          <button mat-mini-fab (click)="center()" matTooltip="Center view on Graph" matTooltipPosition="left"><mat-icon>center_focus_strong</mat-icon></button>
+          <button mat-mini-fab (click)="zoomToFit()" matTooltip="Zoom to fit Graph" matTooltipPosition="left"><mat-icon>fullscreen</mat-icon></button>
+          <button mat-mini-fab (click)="onZoom(null, 'in')" matTooltip="Zoom in" matTooltipPosition="left"><mat-icon>zoom_in</mat-icon></button>
+          <button mat-mini-fab (click)="onZoom(null, 'out')" matTooltip="Zoom out" matTooltipPosition="left"><mat-icon>zoom_out</mat-icon></button>
+          <button mat-mini-fab (click)="computePositionsAfterCollapse = !computePositionsAfterCollapse" matTooltip="Recompute positions on collapse" matTooltipPosition="left">
+            <mat-icon *ngIf="computePositionsAfterCollapse">toggle_on</mat-icon>
+            <mat-icon *ngIf="!computePositionsAfterCollapse">toggle_off</mat-icon>
+          </button>
+      </eco-fab-speed-dial-actions>
+  </eco-fab-speed-dial>
+
+<ngx-charts-chart [view]="[width, height]"
+ mouseWheel (mouseWheelUp)="onZoom($event, 'in')"
+ (mouseWheelDown)="onZoom($event, 'out')">
+
+ <svg:g *ngIf="initialized && graph" [attr.transform]="transform" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)"
+   class="graph chart">
+   <defs>
+     <ng-template *ngIf="defsTemplate" [ngTemplateOutlet]="defsTemplate">
+     </ng-template>
+     <svg:path class="text-path" *ngFor="let link of graph.edges" [attr.id]="link.id"><!-- [attr.d]="link.textPath" -->
+     </svg:path>
+   </defs>
+   <svg:rect class="panning-rect" [attr.width]="dims.width * 100" [attr.height]="dims.height * 100" [attr.transform]="'translate(' + ((-dims.width || 0) * 50) +',' + ((-dims.height || 0) *50) + ')' "
+     (mousedown)="isPanning = true" />
+     <svg:g class="links">
+     <svg:g #linkElement *ngFor="let link of graph.edges; trackBy: trackLinkBy" class="link-group" [id]="link.id"
+            [class.unhighlight]="link.unhighlight" [class.collapsed]="link.collapsed">
+       <ng-template [ngTemplateOutlet]="linkTemplate" [ngTemplateOutletContext]="{ $implicit: link }">
+       </ng-template>
+     </svg:g>
+   </svg:g>
+   <svg:g class="nodes">
+     <svg:g #nodeElement *ngFor="let node of graph.nodes; trackBy: trackNodeBy" class="node-group" [id]="node.id"
+       [class.unhighlight]="node.unhighlight" [class.collapsed]="node.collapsed"
+       (click)="onClick(node)" (dblclick)="onNodeDoubleClick($event, node)"
+       (mousedown)="onNodeMouseDown($event, node)" (mouseenter)="onNodeMouseEnter($event, node)" (mouseleave)="onNodeMouseLeave($event, node)">
+       <ng-template [ngTemplateOutlet]="nodeTemplate" [ngTemplateOutletContext]="{ $implicit: node }">
+       </ng-template>
+     </svg:g>
+   </svg:g>
+ </svg:g>
+</ngx-charts-chart>
+</div>

@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Sign up</h2>
+
+<mat-dialog-content  style="display:flex; flex-direction: column">
+  <button mat-raised-button disabled><img width="16" height="16" style="margin-right: 5px" src="https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg"> Sign up with Google Account</button>
+  <button mat-raised-button disabled><img width="16" height="16" style="margin-right: 5px" src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg"> Sign up with Facebook Account</button>
+
+  <div class="separator">
+    <div class="separator-middle">or</div>
+  </div>
+
+  <form class="register-form">
+    <mat-form-field>
+      <input  matInput  placeholder="Username"  name="username"  [(ngModel)]="signUpInfo.username" [formControl]="usernameControl" required>
+      <mat-error *ngIf="usernameControl.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="usernameControl.hasError('maxLength')">
+        Username is limited to <strong>30</strong> characters.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input  matInput  type="email" placeholder="Email"  name="email" [(ngModel)]="signUpInfo.email" [formControl]="emailControl" required>
+      <mat-error *ngIf="emailControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="emailControl.hasError('email')">
+        Not a <strong>valid</strong> email
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input  matInput  type="password" placeholder="Password"  name="password" [(ngModel)]="signUpInfo.password" [formControl]="passwordControl" required>
+        <mat-error *ngIf="passwordControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordControl.hasError('minLength')">
+          Password needs to be at least <strong>6</strong> characters.
+        </mat-error>
+     </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="display:flex; flex-direction:row">
+  <button mat-raised-button color="primary" cdkFocusInitial style="flex:1" (click)="register()"
+  [disabled]="usernameControl.invalid || emailControl.invalid || passwordControl.invalid">SIGN UP</button>
+</mat-dialog-actions>

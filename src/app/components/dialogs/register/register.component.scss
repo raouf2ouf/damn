@@ -1,0 +1,36 @@
+mat-dialog-content {
+  button {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+}
+
+.separator {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #fff;
+  position: relative;
+
+  .separator-middle {
+    position: absolute;
+    padding: 0 16px;
+    color: #ccc;
+    background: #fff;
+    font-size: 11px;
+    text-shadow: 0 1px 0 #fff;
+    text-transform: uppercase;
+    line-height: 20px;
+
+    top: -9px;
+    left: 41%;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  width:300px;
+}

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content style="display:flex; flex-direction: column">
+  <mat-form-field style="width:200px">
+      <input matInput [(ngModel)]="name" (keydown)="onKeyDown($event)"
+              placeholder="Name">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="accent" (click)="close()">CLOSE</button>
+  <span class="spacer"></span>
+  <button [disabled]="!name" mat-raised-button color="primary" (click)="save()">CONFIRM</button>
+</mat-dialog-actions>
