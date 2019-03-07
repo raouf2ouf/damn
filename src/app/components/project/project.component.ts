@@ -164,7 +164,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
     reader.onload = (data) => {
       let json = JSON.parse(reader.result.toString());
-      this.project = json;
+      this.project = Object.assign(this.project,json);
     }
   }
 
