@@ -209,7 +209,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
   updateKB(kb:KnowledgeBase) {
     let kbToUpdate = this.project.kbs.find(k => k.id === kb.id);
+    if(!kbToUpdate) { // maybe this kb correspond to a kb without an id;
+      kbToUpdate = this.project.kbs.find(k => k.source === kb.source);
+    }
     if(kbToUpdate) {
+      kbToUpdate.id = kb.id;
       kbToUpdate.dlgp = kb.dlgp;
       kbToUpdate.source = kb.source;
       kbToUpdate.agent_id = kb.agent_id;
