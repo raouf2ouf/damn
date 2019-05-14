@@ -184,16 +184,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveAllKBs():void {
-    this.project.kbs.forEach(kb => {
-      this.saveKB(kb);
-    })
-  }
-
   saveKB(kb:KnowledgeBase):void {
     this.collaborationService.saveKB(this.project.id, kb).subscribe(res => {
       this.updateKB(res);
       this.alertService.success(`The knowledge of ${kb.source} has been updated!`);
+    }, error => {
+      this.alertService.error(error);
+    });
+  }
+
+  saveAllKBs():void {
+    this.collaborationService.saveAllKBs(this.project.id, this.project.kbs).subscribe(res => {
+      // res.forEach(kb => {
+      //   this.updateKB(res);
+      // })
+      this.alertService.success(`All knowledge bases have been updated!`);
     }, error => {
       this.alertService.error(error);
     });

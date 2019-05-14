@@ -49,6 +49,10 @@ export class CollaborationService {
     return this.http.post<any>(`${this.apiRoot}/saveKB/${projectId}`, kb);
   }
 
+  saveAllKBs(projectId:string, kbs):Observable<any> {
+    return this.http.post<any>(`${this.apiRoot}/saveAllKBs/${projectId}`, kbs);
+  }
+
   deleteKB(projectId:string, kb):Observable<any> {
     return this.http.post<any>(`${this.apiRoot}/deleteKB/${projectId}`, kb);
   }

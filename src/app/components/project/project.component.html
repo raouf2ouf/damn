@@ -91,7 +91,7 @@
                   <input [disabled]="kb.locked" #fileImportInput type="file" (change)="onFileInput($event)" style="display:none;" accept=".dlgp" />
                   <span>Import from dlgp file</span>
                 </button>
-                <button *ngIf="kb.type !== 'common'" mat-menu-item (click)="deleteKB(kb)">
+                <button mat-menu-item (click)="deleteKB(kb)">
                   <mat-icon>delete</mat-icon>
                   <span>Remove agent</span>
                 </button>
