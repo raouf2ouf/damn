@@ -35,7 +35,7 @@ import { SgGraphModule } from './components/sg-graph/sg-graph.module';
 
 // Dialog boxes
 import { LoginDialogComponent, RegisterDialogComponent, HelpDialogComponent,
-         AddProjectDialogComponent, AgentDialogComponent } from './components/dialogs';
+         AddProjectDialogComponent, AgentDialogComponent, InviteUserDialogComponent } from './components/dialogs';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +47,7 @@ import { AppComponent } from './app.component';
     HomeComponent,
 
     LoginDialogComponent, RegisterDialogComponent, HelpDialogComponent,
-    AddProjectDialogComponent, AgentDialogComponent,
+    AddProjectDialogComponent, AgentDialogComponent, InviteUserDialogComponent,
 
     ProjectComponent, DashboardComponent, SgDisplayComponent
   ],
@@ -82,7 +82,7 @@ import { AppComponent } from './app.component';
                 RxStompService
              ],
   entryComponents: [ LoginDialogComponent, RegisterDialogComponent, HelpDialogComponent,
-                     AddProjectDialogComponent, AgentDialogComponent ],
+                     AddProjectDialogComponent, AgentDialogComponent, InviteUserDialogComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

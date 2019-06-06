@@ -8,7 +8,7 @@ import { AuthenticationService } from '../../security';
 import { AlertService, ProjectService, CollaborationService, SgService } from '../../services';
 import { Project, Statement, Agent, KnowledgeBase } from '../../models';
 
-import { AgentDialogComponent } from '../../components/dialogs';
+import { AgentDialogComponent, InviteUserDialogComponent } from '../../components/dialogs';
 
 import { Subscription } from 'rxjs';
 
@@ -68,14 +68,16 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.project = res;
       if(!this.project.semantic) this.project.semantic = this.semantics[0].value;
 
-      let broadcastWatch = this.collaborationService.watch(this.project.id).subscribe((payload) => {
+      let broadcastWatch = this.collaborationService.watch(`/project/${this.project.id}`).subscribe((payload) => {
+        console.log("recieved something from the server!!!!!!!!!!!!");
         this.updateKB(JSON.parse(payload.body));
       });
       this.subscriptions.push(broadcastWatch);
 
-      let deleteWatch = this.collaborationService.watch(`${this.project.id}/delete`).subscribe(payload => {
+      let deleteWatch = this.collaborationService.watch(`/delete/${this.project.id}`).subscribe(payload => {
         let kb = JSON.parse(payload.body);
         this.project.kbs = this.project.kbs.filter(k => k.id !== kb.id);
+        this.alertService.success(`A knowledge base has been deleted!`);
       });
       this.subscriptions.push(deleteWatch);
 
@@ -149,6 +151,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
       }
     });
   }
+  // Invite user for collaboration
+
+  inviteUser() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(InviteUserDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data) {
+        this.collaborationService.inviteUser(data, this.project.id).subscribe(message => {
+          this.alertService.success(message.message);
+        }, error => this.alertService.error(error));
+      }
+    });
+  }
   // File Import/Export
   exportProjectToFile(a) {
     // Update the save to local file button
@@ -186,8 +203,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   saveKB(kb:KnowledgeBase):void {
     this.collaborationService.saveKB(this.project.id, kb).subscribe(res => {
-      this.updateKB(res);
-      this.alertService.success(`The knowledge of ${kb.source} has been updated!`);
+      // this.updateKB(res);
     }, error => {
       this.alertService.error(error);
     });
@@ -223,8 +239,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
       kbToUpdate.source = kb.source;
       kbToUpdate.agent_id = kb.agent_id;
       kbToUpdate.editors = kb.editors;
+      this.alertService.success(`The knowledge of ${kb.source} has been updated!`);
+
     } else {
       this.project.kbs.push(kb);
+      this.alertService.success(`The knowledge of ${kb.source} has been added!`);
     }
   }
 

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {myRxStompConfig} from '../my-rx-stomp.config';
 import { RxStompService, InjectableRxStompConfig} from '@stomp/ng2-stompjs';
 import { Message } from '@stomp/stompjs';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 
 import {TokenStorageService} from '../security';
 
@@ -34,11 +34,16 @@ export class CollaborationService {
   }
 
   watch(url:string) {
-    return this.rxStompService.watch(`${this.apiRoot}/project/${url}`);
+    // return this.rxStompService.watch(`${this.apiRoot}/project/${url}`);
+    return this.rxStompService.watch(url);
   }
 
   publish(data:any) {
     return this.rxStompService.publish(data);
+  }
+
+  search(username:string):Observable<String[]> {
+    return username ? this.http.get<String[]>(`${this.apiRoot}/user/${username}`) : of([]);
   }
 
   inviteUser(username:string, project_id:string):Observable<any> {

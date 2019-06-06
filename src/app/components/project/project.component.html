@@ -21,7 +21,7 @@
         </button>
         <mat-menu #addAgentUsermenu="matMenu" [overlapTrigger]="false">
           <button mat-menu-item (click)="addOrEditLocalAgent()"><mat-icon>person_add</mat-icon> Add local agent</button>
-          <button *ngIf="agent" mat-menu-item disabled><mat-icon>person_add</mat-icon> Invite a user</button>
+          <button *ngIf="agent" mat-menu-item (click)="inviteUser()"><mat-icon>person_add</mat-icon> Invite a user</button>
         </mat-menu>
 
         <!-- <span class="spacer"></span> -->
